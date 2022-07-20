@@ -1,0 +1,117 @@
+import {StyleSheet} from 'react-native';
+
+export const NewCommunityStyle = StyleSheet.create({
+  main: {
+    width: '80%',
+    alignSelf: 'center',
+    padding: 15,
+    marginTop: 15,
+  },
+  UploadImg: {
+    backgroundColor: '#0066b2',
+    padding: 12,
+    borderRadius: 30,
+  },
+  UploadTitle: {
+    left: 30,
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: '#fff',
+  },
+  UploadTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#2196F3',
+    padding: 5,
+  },
+  UploadBottom: {
+    top: 20,
+    // flexDirection: 'row',
+    alignItems: 'center',
+    // borderBottomColor: 'skyblue',
+    // borderBottomWidth: 1,
+  },
+  UploadBottomInput: {
+    // flexDirection: 'row',
+    left: 10,
+    // width: '70%',
+  },
+  UploadInput: {
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+  },
+
+  CommunityNameInput: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: 'skyblue',
+    paddingBottom: 5,
+  },
+  input: {
+    width: '100%',
+    // color: 'black',
+    paddingBottom: 5,
+    marginBottom: 5,
+    marginTop: 5,
+    top: 15,
+    textAlign: 'left',
+    fontWeight: 'bold',
+    fontFamily: 'sans-serif-medium',
+    lineHeight: 1.5,
+  },
+  // BioInput: {
+  //   flexDirection: 'row',
+  //   borderBottomWidth: 1,
+  //   borderBottomColor: 'skyblue',
+  //   paddingBottom: 5,
+  // },
+  bio: {
+    width: '100%',
+    color: 'black',
+    paddingBottom: 5,
+    marginBottom: 5,
+    marginTop: 5,
+    top: 15,
+  },
+  CommunityBottom: {
+    marginTop: 50,
+  },
+  CreateCommunity: {
+    color: '#2196F3',
+    padding: 10,
+    borderRadius: 30,
+    backgroundColor: 'skyblue',
+    position: 'absolute',
+  },
+  img: {
+    alignSelf: 'center',
+    backgroundColor: '#0066b2',
+    padding: 15,
+    borderRadius: 30,
+  },
+  description: {
+    // height: 'auto',
+    textAlignVertical: 'top',
+    // borderBottomColor: 'skyblue',
+    // borderBottomWidth: 1,
+    width: '100%',
+    color: 'black',
+    justifyContent: 'flex-start',
+    // paddingBottom: 5,
+    // marginBottom: 5,
+    // marginTop: 5,
+    top: 15,
+    textAlign: 'left',
+    left: 5,
+  },
+  textAreaContainer: {
+    borderColor: 'skyblue',
+    borderWidth: 1,
+    padding: 5,
+    top: 15,
+  },
+  textArea: {
+    height: 100,
+    justifyContent: 'flex-start',
+  },
+});

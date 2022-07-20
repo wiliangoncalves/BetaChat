@@ -1,0 +1,12 @@
+{
+    "translation": {
+      "register":"Register",
+      "already registered?": "Already Registered?",
+      "repeat_password": "Repeat Password",
+      "password":"Password",
+      "username":"Username",
+      "profile":"Profile",
+      "please fill out profile": "Please fill out Profile",
+      "forgot password?": "Forgot password?"
+    }
+  }

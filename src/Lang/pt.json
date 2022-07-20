@@ -1,0 +1,11 @@
+{
+    "translation": {
+      "register":"Cadastro",
+      "already registered?": "Já possui um cadastro?",
+      "repeat_password": "Repita a senha",
+      "password": "Senha",
+      "username": "Nome de usuário",
+      "profile": "Perfil",
+      "please fill out profile": "Por favor, digite seu perfil."
+    }
+}

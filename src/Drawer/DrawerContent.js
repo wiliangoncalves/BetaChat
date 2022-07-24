@@ -7,7 +7,6 @@ import {
 } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View, Text, Image, Button} from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
 import {Avatar, Caption, Title, Drawer} from 'react-native-paper';
 
 import ExitIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,7 +21,8 @@ import {DrawerContentStyle} from '../styles/DrawerContent.Style';
 export default function DrawerContent({navigation}) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  // const [token, setToken] = useState('');
+  const [avatar, setAvatar] = useState('');
+
   const handleSignOut = () => {
     AsyncStorage.removeItem('token');
     navigation.navigate('Register');
@@ -32,17 +32,17 @@ export default function DrawerContent({navigation}) {
     const info = navigation.addListener('focus', () => {
       AsyncStorage.getItem('token').then(token => {
         fetch('http://192.168.0.116:8000/home', {
-          method: 'POST',
+          method: 'GET',
           headers: {
-            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
-          mode: 'cors',
-          body: JSON.stringify({token}),
         })
           .then(res => res.json())
           .then(res => {
             setName(res.name);
             setEmail(res.email);
+            setAvatar(res.avatar);
           })
           .catch(err => console.log('Error home', err));
       });
@@ -51,32 +51,15 @@ export default function DrawerContent({navigation}) {
     return info;
   }, [navigation]);
 
-  const handleUserInfo = () => {
-    AsyncStorage.getItem('token').then(token => {
-      fetch('http://192.168.0.116:8000/home', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        mode: 'cors',
-        body: JSON.stringify({token}),
-      })
-        .then(res => res.json())
-        .then(res => {
-          setEmail(res.email);
-          console.log('peguei home', res);
-        })
-        .catch(err => console.log('Error home', err));
-    });
-  };
-
   return (
     <View style={DrawerContentStyle.Main}>
       <DrawerContentScrollView>
         <View style={DrawerContentStyle.DrawerTop}>
           <View style={DrawerContentStyle.UserInfo}>
             <Image
-              source={{uri: 'https://iili.io/jZ9R87.md.webp'}}
+              source={{
+                uri: avatar === '' ? 'https://iili.io/VvKa8g.png' : avatar,
+              }}
               style={DrawerContentStyle.Avatar}
             />
 
@@ -85,30 +68,10 @@ export default function DrawerContent({navigation}) {
               <Caption style={DrawerContentStyle.Caption}>{email}</Caption>
             </View>
           </View>
-
-          {/* <Drawer.Section
-            style={DrawerContentStyle.DrawerContainer}>
-            <DrawerItem
-              style={DrawerContentStyle.DrawerItemText}
-              // icon="star"
-              icon={() => <NewCommunityIcon name="users" size={20} />}
-              label="New Community"
-            />
-            <DrawerItem
-              style={{backgroundColor: '#64ffda'}}
-              label="Second Item"
-            />
-            <DrawerItem
-              style={DrawerContentStyle.DrawerItemText}
-              label="Settings"
-              icon={() => <SettingsIcon name="settings-outline" size={22} />}
-            />
-          </Drawer.Section> */}
         </View>
 
         <Drawer.Section style={DrawerContentStyle.DrawerContainer}>
           <DrawerItem
-            // icon="star"
             icon={() => <NewCommunityIcon name="users" size={20} />}
             label="New Community"
             onPress={() => navigation.navigate('NewCommunity')}

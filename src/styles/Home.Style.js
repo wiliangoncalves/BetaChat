@@ -23,16 +23,27 @@ export const HomeStyle = StyleSheet.create({
     top: 0,
     paddingVertical: 1,
   },
+
   ComunnityContainer: {
     flex: 1,
-    // backgroundColor: 'pink',
-  },
-  ComunnityItem: {
-    // top: 10,
-    left: 10,
-    marginTop: 20,
-    marginBottom: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
+    marginTop: 10,
+    // backgroundColor: 'pink',
+  },
+  CommunityAvatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 30,
+  },
+  ComunnityItem: {
+    left: 10,
+    marginTop: 20,
+    paddingBottom: 10,
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'black',
   },
 });

@@ -10,15 +10,28 @@ export const CommunityStyle = StyleSheet.create({
     // backgroundColor: 'pink',
   },
   CommunityAvatar: {
-    width: 34,
-    height: 34,
+    width: 48,
+    height: 48,
     borderRadius: 30,
+    left: 25,
+    color: '#fff',
   },
-  ComunnityItem: {
-    // top: 10,
-    left: 10,
-    marginTop: 20,
-    // marginBottom: 20,
-    paddingBottom: 10,
+  CommunityTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#2196F3',
+    padding: 5,
+  },
+  CommunityTopInfo: {
+    left: 40,
+  },
+  CommunityTitle: {
+    color: '#fff',
+    fontSize: 14,
+    top: 5,
+  },
+  CommunityMembers: {
+    color: '#fff',
+    top: -5,
   },
 });

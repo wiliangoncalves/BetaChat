@@ -98,7 +98,13 @@ function App() {
             },
           }}
         />
-        <Stack.Screen name="Community" component={Community} />
+        <Stack.Screen
+          name="Community"
+          component={Community}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="NewCommunity"
           component={NewCommunity}

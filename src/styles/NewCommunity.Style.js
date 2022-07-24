@@ -22,7 +22,7 @@ export const NewCommunityStyle = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#2196F3',
-    padding: 5,
+    padding: 10,
   },
   UploadBottom: {
     top: 20,

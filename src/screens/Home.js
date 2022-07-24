@@ -1,53 +1,68 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, Text, View, BackHandler} from 'react-native';
+import {ScrollView, Text, View, BackHandler, Image} from 'react-native';
 import {HomeStyle} from '../styles/Home.Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Community from './Community';
 
-export default function Home({navigation}) {
-  // console.log('HOME');
-  // const [token, setToken] = useState('');
-  // AsyncStorage.getItem('token').then(token => {
-  //   fetch('http://192.168.0.116:8000/home', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-type': 'application/json',
-  //     },
-  //     mode: 'cors',
-  //     body: JSON.stringify({token}),
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       console.log('peguei home', res);
-  //     })
-  //     .catch(err => console.log('Error home', err));
-  // });
+import {CommunityStyle} from '../styles/Community.Style';
 
-  // useEffect(() => {
-  //   console.log('Aqu');
-  //   fetch('http://192.168.0.116:8000/home', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-type': 'application/json',
-  //     },
-  //     mode: 'cors',
-  //     body: JSON.stringify({token}),
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       // console.log('peguei home', res);
-  //     })
-  //     .catch(err => console.log('Error home', err));
+import {useNavigation} from '@react-navigation/native';
+import {Title} from 'react-native-paper';
+
+export default function Home() {
+  const navigation = useNavigation();
+  const [name, setName] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [show, setShow] = useState('none');
 
   BackHandler.addEventListener('hardwareBackPress', () => {
     return true;
   });
   // });
 
+  useEffect(() => {
+    const info = navigation.addListener('focus', () => {
+      AsyncStorage.getItem('token').then(token => {
+        fetch('http://192.168.0.116:8000/community', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then(res => res.json())
+          .then(res => {
+            if (res.status === 200) {
+              setName(res.name);
+              setAvatar(res.avatar);
+              setShow('flex');
+            } else {
+              setShow('none');
+              console.log('nothing');
+            }
+          })
+          .catch(err => console.log('Error home', err));
+      });
+    });
+
+    return info;
+  }, [navigation]);
+
+  const handleCommunity = () => {
+    navigation.navigate('Community');
+  };
+
   return (
-    <ScrollView style={HomeStyle.ComunnityContainer}>
-      <Community />
+    <ScrollView>
+      <View style={[HomeStyle.ComunnityContainer, {display: `${show}`}]}>
+        <Image
+          source={{uri: avatar === '' ? 'https://iili.io/VvKa8g.png' : avatar}}
+          style={HomeStyle.CommunityAvatar}
+        />
+        <Text style={HomeStyle.ComunnityItem} onPress={handleCommunity}>
+          {name}
+        </Text>
+      </View>
     </ScrollView>
   );
 }

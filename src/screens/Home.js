@@ -12,6 +12,7 @@ import {Title} from 'react-native-paper';
 
 export default function Home() {
   const navigation = useNavigation();
+  const [communitys, setCommunitys] = useState(0);
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [show, setShow] = useState('none');
@@ -19,7 +20,6 @@ export default function Home() {
   BackHandler.addEventListener('hardwareBackPress', () => {
     return true;
   });
-  // });
 
   useEffect(() => {
     const info = navigation.addListener('focus', () => {
@@ -36,9 +36,19 @@ export default function Home() {
               setName(res.name);
               setAvatar(res.avatar);
               setShow('flex');
+
+              let items = [];
+
+              for (let i = 0; i < res.data.length; i++) {
+                items.push(res.data[i]);
+              }
+
+              items.forEach(element => {
+                console.log(element);
+              });
             } else {
               setShow('none');
-              console.log('nothing');
+              console.log('empty community');
             }
           })
           .catch(err => console.log('Error home', err));

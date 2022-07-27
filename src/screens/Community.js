@@ -11,10 +11,12 @@ import {Title, Caption} from 'react-native-paper';
 // Icons
 import ArrowLeft from 'react-native-vector-icons/AntDesign';
 
-export default function Community() {
+export default function Community(props) {
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
+
+  const index = props.route.params.index;
 
   useEffect(() => {
     const Userinfo = navigation.addListener('focus', () => {
@@ -29,8 +31,8 @@ export default function Community() {
           .then(res => res.json())
           .then(res => {
             if (res.status === 200) {
-              setName(res.name);
-              setAvatar(res.avatar);
+              setName(res.data[index].community_name);
+              setAvatar(res.data[index].community_avatar);
             } else {
               console.log('nothing');
             }
@@ -40,33 +42,7 @@ export default function Community() {
     });
 
     return Userinfo;
-  }, [navigation]);
-
-  // useEffect(() => {
-  //   const Communityinfo = navigation.addListener('focus', () => {
-  //     AsyncStorage.getItem('token').then(token => {
-  //       fetch('http://192.168.0.116:8000/community_info', {
-  //         method: 'GET',
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           'Content-Type': 'application/x-www-form-urlencoded',
-  //         },
-  //       })
-  //         .then(res => res.json())
-  //         .then(res => {
-  //           if (res.status === 200) {
-  //             setName(res.name);
-  //             setAvatar(res.avatar);
-  //           } else {
-  //             console.log('nothing');
-  //           }
-  //         })
-  //         .catch(err => console.log('Error home', err));
-  //     });
-  //   });
-
-  //   return Communityinfo;
-  // }, [navigation]);
+  }, [index, navigation]);
 
   return (
     <ScrollView>

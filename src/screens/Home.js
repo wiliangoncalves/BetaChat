@@ -1,21 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, Text, View, BackHandler, Image} from 'react-native';
+import {
+  ScrollView,
+  Text,
+  View,
+  BackHandler,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import {HomeStyle} from '../styles/Home.Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Community from './Community';
-
-import {CommunityStyle} from '../styles/Community.Style';
-
 import {useNavigation} from '@react-navigation/native';
-import {Title} from 'react-native-paper';
 
 export default function Home() {
   const navigation = useNavigation();
-  const [communitys, setCommunitys] = useState(0);
-  const [name, setName] = useState('');
-  const [avatar, setAvatar] = useState('');
   const [show, setShow] = useState('none');
+
+  const [count, setCount] = React.useState(0);
+  const [items, setItems] = React.useState([]);
 
   BackHandler.addEventListener('hardwareBackPress', () => {
     return true;
@@ -33,19 +35,20 @@ export default function Home() {
           .then(res => res.json())
           .then(res => {
             if (res.status === 200) {
-              setName(res.name);
-              setAvatar(res.avatar);
-              setShow('flex');
-
-              let items = [];
+              const datas = res.data;
 
               for (let i = 0; i < res.data.length; i++) {
-                items.push(res.data[i]);
+                setCount(res.data[i]);
               }
 
-              items.forEach(element => {
-                console.log(element);
-              });
+              // for (let i = 0; i < count; i++) {
+              //   datas[i] = {
+              //     number: i + 1,
+              //     description: `desc${i}`,
+              //   };
+              // }
+              setItems(datas);
+              setShow('flex');
             } else {
               setShow('none');
               console.log('empty community');
@@ -56,23 +59,43 @@ export default function Home() {
     });
 
     return info;
-  }, [navigation]);
+  }, [count, navigation]);
 
-  const handleCommunity = () => {
-    navigation.navigate('Community');
-  };
+  function Box({item, index}) {
+    const handleCommunity = () => {
+      navigation.navigate('Community', {item, index});
+    };
+
+    return (
+      <>
+        <TouchableOpacity onPress={handleCommunity}>
+          <View style={[HomeStyle.ComunnityContainer, {display: `${show}`}]}>
+            <Image
+              source={{
+                uri:
+                  item.community_avatar === ''
+                    ? 'https://iili.io/VvKa8g.png'
+                    : item.community_avatar,
+              }}
+              style={HomeStyle.CommunityAvatar}
+            />
+            <Text style={HomeStyle.ComunnityItem}>{item.community_name}</Text>
+
+            <View style={HomeStyle.CommunityData}>
+              <Text>00:00</Text>
+              <Text style={HomeStyle.CommunityDataPosts}>10</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </>
+    );
+  }
 
   return (
     <ScrollView>
-      <View style={[HomeStyle.ComunnityContainer, {display: `${show}`}]}>
-        <Image
-          source={{uri: avatar === '' ? 'https://iili.io/VvKa8g.png' : avatar}}
-          style={HomeStyle.CommunityAvatar}
-        />
-        <Text style={HomeStyle.ComunnityItem} onPress={handleCommunity}>
-          {name}
-        </Text>
-      </View>
+      {items.map((item, index) => (
+        <Box item={item} index={index} key={index} />
+      ))}
     </ScrollView>
   );
 }

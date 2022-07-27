@@ -11,17 +11,8 @@ import '../Lang/i18n';
 import {useTranslation} from 'react-i18next';
 
 import ErrorMessage from '../Components/HandleMessage/ErrorMessage';
-import SuccessMessage from '../Components/HandleMessage/SuccessMessage';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// const storeData = async (value) => {
-//   try {
-//     await AsyncStorage.setItem('@storage_Key', value)
-//   } catch (e) {
-//     // saving error
-//   }
-// }
 
 export default function Login({navigation}) {
   const [email, setEmail] = useState('');
@@ -66,10 +57,8 @@ export default function Login({navigation}) {
         }
 
         if (res.status >= 200 && res.status <= 299) {
-          // AsyncStorage.removeItem('token');
           AsyncStorage.setItem('token', res.token);
           navigation.navigate('Home');
-          // AsyncStorage.getItem('token').then(aqui => console.log(aqui));
         }
       })
       .catch(err => console.log('Error on Login.js POST Fetch', err));

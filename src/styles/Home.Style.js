@@ -31,6 +31,7 @@ export const HomeStyle = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
     marginTop: 10,
+    paddingBottom: 5,
     // backgroundColor: 'pink',
   },
   CommunityAvatar: {
@@ -45,5 +46,16 @@ export const HomeStyle = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     color: 'black',
+  },
+  CommunityData: {
+    position: 'absolute',
+    right: 10,
+    alignItems: 'center',
+  },
+  CommunityDataPosts: {
+    color: '#fff',
+    backgroundColor: '#2196F3',
+    borderRadius: 30,
+    padding: 3,
   },
 });
